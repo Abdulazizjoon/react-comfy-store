@@ -85,9 +85,8 @@ function Product() {
           </div>
         </div>
       </nav>
-      <section className="container mx-auto w-[1200px] bg-[#b4eaea] rounded-xl p-8">
+      <section className="container mx-auto mt w-[1200px] bg-[#b4eaea] rounded-xl p-8">
         <form className="grid grid-cols-4 gap-6">
-          {/* Search Product */}
           <div>
             <label
               htmlFor="search"
@@ -103,7 +102,6 @@ function Product() {
             />
           </div>
 
-          {/* Category Filter */}
           <div>
             <label
               htmlFor="category"
@@ -119,7 +117,6 @@ function Product() {
             </select>
           </div>
 
-          {/* Price Range (Min Price) */}
           <div>
             <label
               htmlFor="minPrice"
@@ -135,7 +132,6 @@ function Product() {
             />
           </div>
 
-          {/* Price Range (Max Price) */}
           <div>
             <label
               htmlFor="maxPrice"
@@ -151,7 +147,6 @@ function Product() {
             />
           </div>
 
-          {/* Rating Filter */}
           <div>
             <label
               htmlFor="rating"
@@ -167,7 +162,6 @@ function Product() {
             </select>
           </div>
 
-          {/* Availability Filter */}
           <div>
             <label
               htmlFor="availability"
@@ -182,7 +176,6 @@ function Product() {
             </select>
           </div>
 
-          {/* Sort By */}
           <div>
             <label
               htmlFor="sortBy"
@@ -197,7 +190,6 @@ function Product() {
             </select>
           </div>
 
-          {/* Apply Button */}
           <div className="col-span-4 flex justify-end">
             <button
               type="submit"

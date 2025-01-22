@@ -85,7 +85,7 @@ function Product() {
           </div>
         </div>
       </nav>
-      <section className="container mx-auto mt w-[1200px] bg-[#b4eaea] rounded-xl p-8">
+      <section className="container mt-9 mb-9 mx-auto mt w-[1200px] bg-[#b4eaea] rounded-xl p-8">
         <form className="grid grid-cols-4 gap-6">
           <div>
             <label

@@ -28,16 +28,16 @@ function Product() {
   function product() {
     navigate("/products");
   }
-    function click(id) {
-        localStorage.setItem('id', id)
-        navigate(`/cart/${id}`)
-    }
-    function home() {
-        navigate('/')
-    }
-    function cart() {
-        navigate("/cart");
-    }
+  function click(id) {
+    localStorage.setItem("id", id);
+    navigate(`/cart/${id}`);
+  }
+  function home() {
+    navigate("/");
+  }
+  function cart() {
+    navigate("/cart");
+  }
   return (
     <div>
       <header className="bg-blue-950 py-2 ">
@@ -85,19 +85,130 @@ function Product() {
           </div>
         </div>
       </nav>
-      <section className="container mx-auto w-[1200px]">
-        <form className="grid grid-cols-4 justify-center">
-          <div>1</div>
-          <div>2</div>
-          <div>3</div>
-          <div>4</div>
-          <div>5</div>
-          <div>6</div>
-          <div>7</div>
-          <div>8</div>
+      <section className="container mx-auto w-[1200px] bg-[#b4eaea] rounded-xl p-8">
+        <form className="grid grid-cols-4 gap-6">
+          {/* Search Product */}
+          <div>
+            <label
+              htmlFor="search"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Search Product
+            </label>
+            <input
+              id="search"
+              type="text"
+              placeholder="Type here"
+              className="input input-bordered w-full"
+            />
+          </div>
+
+          {/* Category Filter */}
+          <div>
+            <label
+              htmlFor="category"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Category
+            </label>
+            <select id="category" className="select select-bordered w-full">
+              <option value="">All Categories</option>
+              <option value="furniture">Furniture</option>
+              <option value="decor">Decor</option>
+              <option value="bedding">Bedding</option>
+            </select>
+          </div>
+
+          {/* Price Range (Min Price) */}
+          <div>
+            <label
+              htmlFor="minPrice"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Min Price
+            </label>
+            <input
+              id="minPrice"
+              type="number"
+              placeholder="Min"
+              className="input input-bordered w-full"
+            />
+          </div>
+
+          {/* Price Range (Max Price) */}
+          <div>
+            <label
+              htmlFor="maxPrice"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Max Price
+            </label>
+            <input
+              id="maxPrice"
+              type="number"
+              placeholder="Max"
+              className="input input-bordered w-full"
+            />
+          </div>
+
+          {/* Rating Filter */}
+          <div>
+            <label
+              htmlFor="rating"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Rating
+            </label>
+            <select id="rating" className="select select-bordered w-full">
+              <option value="">All Ratings</option>
+              <option value="5">5 Stars</option>
+              <option value="4">4 Stars & Above</option>
+              <option value="3">3 Stars & Above</option>
+            </select>
+          </div>
+
+          {/* Availability Filter */}
+          <div>
+            <label
+              htmlFor="availability"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Availability
+            </label>
+            <select id="availability" className="select select-bordered w-full">
+              <option value="">All</option>
+              <option value="inStock">In Stock</option>
+              <option value="outOfStock">Out of Stock</option>
+            </select>
+          </div>
+
+          {/* Sort By */}
+          <div>
+            <label
+              htmlFor="sortBy"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Sort By
+            </label>
+            <select id="sortBy" className="select select-bordered w-full">
+              <option value="popularity">Popularity</option>
+              <option value="lowToHigh">Price: Low to High</option>
+              <option value="highToLow">Price: High to Low</option>
+            </select>
+          </div>
+
+          {/* Apply Button */}
+          <div className="col-span-4 flex justify-end">
+            <button
+              type="submit"
+              className="btn btn-primary bg-indigo-600 text-white py-2 px-6 rounded-md hover:bg-indigo-700"
+            >
+              Apply Filters
+            </button>
+          </div>
         </form>
       </section>
-      <div className="flex flex-wrap mx-auto gap-4 w-[1200px] justify-center">
+      <div className="flex flex-wrap mx-auto gap-4 w-[1200px] justify-between">
         {data.map((value, index) => (
           <div
             onClick={() => click(value.id)}

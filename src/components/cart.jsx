@@ -9,18 +9,18 @@ function Cart() {
     let id=useParams().id
   useEffect(() => {
     axios
-        .get(`https://react-vite-comfy-store-v2.netlify.app/products/${id}`)
-        
+      .get(`https://react-vite-comfy-store-v2.netlify.app/products/${id}`)
+
       .then((response) => {
         if (response.status === 200) {
-          console.log("API response:", response.data.data);
-          setData(response.data.data);
+          console.log("API response:", response.data);
+          setData(response.data);
         }
       })
       .catch((err) => {
         console.error("API Error:", err);
       });
-  }, []);
+  }, [id]);
 
   function about() {
     navigate("/about");

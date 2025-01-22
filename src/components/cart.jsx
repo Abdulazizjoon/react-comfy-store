@@ -1,15 +1,16 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Pagination from "@mui/material/Pagination";
 
-function Product() {
+function Cart() {
   const [data, setData] = useState([]);
-  const navigate = useNavigate();
-
+    const navigate = useNavigate();
+    let id=useParams().id
   useEffect(() => {
     axios
-      .get(`https://strapi-store-server.onrender.com/api/products`)
+        .get(`https://react-vite-comfy-store-v2.netlify.app/products/${id}`)
+        
       .then((response) => {
         if (response.status === 200) {
           console.log("API response:", response.data.data);
@@ -28,16 +29,15 @@ function Product() {
   function product() {
     navigate("/products");
   }
-    function click(id) {
-        localStorage.setItem('id', id)
-        navigate(`/cart/${id}`)
-    }
-    function home() {
-        navigate('/')
-    }
-    function cart() {
-        navigate("/cart");
-    }
+  function click(id) {
+    localStorage.setItem("id", id);
+  }
+  function home() {
+    navigate("/");
+  }
+  function cart() {
+    navigate("/cart");
+  }
   return (
     <div>
       <header className="bg-blue-950 py-2 ">
@@ -68,13 +68,13 @@ function Product() {
             </li>
             <li
               onClick={product}
-              className="text-sm px-4 py-2 text-[#c7c9d1] ml-1 cursor-pointer bg-[#021431] rounded-xl"
+              className="text-sm px-4 py-2 text-[#394E6A] hover:bg-gray-400 ml-1 cursor-pointer rounded-xl"
             >
               Products
             </li>
             <li
               onClick={cart}
-              className="text-sm px-4 py-2 text-[#394E6A] ml-1 cursor-pointer hover:bg-gray-400 rounded-xl"
+              className="text-sm px-4 py-2 bg-[#021431] text-[#c7c9d1] ml-1 cursor-pointer hover:bg-gray-400 rounded-xl"
             >
               Cart
             </li>
@@ -85,50 +85,12 @@ function Product() {
           </div>
         </div>
       </nav>
-      <section className="container mx-auto w-[1200px]">
-        <form className="grid grid-cols-4 justify-center">
-          <div>1</div>
-          <div>2</div>
-          <div>3</div>
-          <div>4</div>
-          <div>5</div>
-          <div>6</div>
-          <div>7</div>
-          <div>8</div>
-        </form>
-      </section>
-      <div className="flex flex-wrap mx-auto gap-4 w-[1200px] justify-center">
-        {data.map((value, index) => (
-          <div
-            onClick={() => click(value.id)}
-            key={index}
-            className=" cursor-pointer bg-white rounded-lg p-3 shadow-lg  w-80"
-          >
-            <img
-              src={value.attributes.image}
-              alt={value.attributes.tit}
-              className="w-full h-48 object-cover rounded-lg"
-            />
-            <div className="p-4 text-center">
-              <h2 className="text-lg font-semibold text-gray-800">
-                {value.attributes.title}
-              </h2>
-              <p className="text-blue-500 text-xl mt-2">
-                ${value.attributes.price}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
-      <div>
-        <div className="join justify-end container w-[1200px] mx-auto flex">
-          <button className="join-item btn">«</button>
-          <button className="join-item btn">Page 22</button>
-          <button className="join-item btn">»</button>
-        </div>
+      
+          <div>
+              {}
       </div>
     </div>
   );
 }
 
-export default Product;
+export default Cart;

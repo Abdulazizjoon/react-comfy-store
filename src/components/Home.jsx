@@ -27,7 +27,9 @@ function Home() {
   function product() {
     navigate("/products");
   }
-
+  function cart() {
+    navigate('/cart')
+  }
   return (
     <div>
       <header className="bg-blue-950 py-2 ">
@@ -59,7 +61,7 @@ function Home() {
             >
               Products
             </li>
-            <li className="text-sm px-4 py-2 text-[#394E6A] ml-1 cursor-pointer hover:bg-gray-400 rounded-xl">
+            <li onClick={cart} className="text-sm px-4 py-2 text-[#394E6A] ml-1 cursor-pointer hover:bg-gray-400 rounded-xl">
               Cart
             </li>
           </ul>
@@ -79,7 +81,10 @@ function Home() {
             repellat explicabo enim soluta temporibus asperiores aut obcaecati
             perferendis porro nobis.
           </p>
-          <button onClick={product} className="mt-10 pt-3 bg-blue-500 px-4 inline-flex h-12 py-2 rounded-lg text-[#DBE1ff]">
+          <button
+            onClick={product}
+            className="mt-10 pt-3 bg-blue-500 px-4 inline-flex h-12 py-2 rounded-lg text-[#DBE1ff]"
+          >
             OUR PRODUCTS
           </button>
         </div>
@@ -101,7 +106,10 @@ function Home() {
       </div>
       <div className="flex flex-wrap mx-auto gap-4 w-[1200px] justify-center">
         {data.slice(0, 3).map((value, index) => (
-          <div key={index} className="bg-white rounded-lg p-3 shadow-lg  w-80">
+          <div
+            key={index}
+            className="bg-white cursor-pointer rounded-lg p-3 shadow-lg  w-80"
+          >
             <img
               src={value.attributes.image}
               alt={value.attributes.tit}

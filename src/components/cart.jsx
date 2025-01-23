@@ -4,17 +4,19 @@ import { useNavigate, useParams } from "react-router-dom";
 import Pagination from "@mui/material/Pagination";
 
 function Cart() {
-  const [data, setData] = useState([]);
-    const navigate = useNavigate();
-    let id=useParams().id
+  let [data, setData] = useState([]);
+  let navigate = useNavigate();
+  let [amount, setAmount] = useState(1);
+
+  let id = useParams().id;
   useEffect(() => {
     axios
-      .get(`https://react-vite-comfy-store-v2.netlify.app/products/${id}`)
+      .get(`https://strapi-store-server.onrender.com/api/products/${id}`)
 
       .then((response) => {
         if (response.status === 200) {
-          console.log("API response:", response.data);
-          setData(response.data);
+          console.log("API response:", response.data.data);
+          setData(response.data.data);
         }
       })
       .catch((err) => {
@@ -34,9 +36,6 @@ function Cart() {
   }
   function home() {
     navigate("/");
-  }
-  function cart() {
-    navigate("/cart");
   }
   return (
     <div>
@@ -68,14 +67,11 @@ function Cart() {
             </li>
             <li
               onClick={product}
-              className="text-sm px-4 py-2 text-[#394E6A] hover:bg-gray-400 ml-1 cursor-pointer rounded-xl"
+              className="text-sm px-4 py-2 bg-[#021431] ml-1 cursor-pointer rounded-xl"
             >
               Products
             </li>
-            <li
-              onClick={cart}
-              className="text-sm px-4 py-2 bg-[#021431] text-[#c7c9d1] ml-1 cursor-pointer hover:bg-gray-400 rounded-xl"
-            >
+            <li className="text-sm px-4 py-2 text-[#394E6A] ml-1 cursor-pointer hover:bg-gray-400 rounded-xl">
               Cart
             </li>
           </ul>
@@ -85,9 +81,100 @@ function Cart() {
           </div>
         </div>
       </nav>
-      
-          <div>
-              {}
+
+      <div>
+        <div className="container mx-auto w-[1200px] flex items-center gap-2 mt-9 mb-12">
+          <p className="ml-20 text-[#394e6a] cursor-pointer text-lg">Home </p>
+          <i class="fa-solid fa-chevron-right text-[#394e6a] text-lg"></i>
+          <p className=" text-[#394e6a] text-lg cursor-pointer">Products</p>
+        </div>
+        {data?.attributes && (
+          <div className="container mx-auto w-[1200px] justify-center flex">
+            <div className="w-1/2 rounded-lg">
+              <img
+                src={data.attributes.image}
+                alt=""
+                className="w-full h-96 object-cover rounded-lg"
+              />
+            </div>
+            <div className="w-1/2 ml-11">
+              <h2 className="text-2xl font-semibold text-[#394e6a] mb-4">
+                {data.attributes.title}
+              </h2>
+              <p className="text-2xl text-[c7c9d1]] font-bold mb-6">
+                ${data.attributes.company}
+              </p>
+              <p className="text-2xl text-blue-600 font-bold mb-6">
+                ${data.attributes.price}
+              </p>
+              <p className="text-lg text-gray-600 mb-6">
+                {data.attributes.description}
+              </p>
+              <p>Colors</p>
+              <div class="flex mr-[80%] items-center justify-center gap-6 mt-10">
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    name="color"
+                    value="green"
+                    class="hidden peer"
+                  />
+                  <div class="w-10 h-10 bg-green-500 rounded-full border-4 border-transparent peer-checked:border-blue-500 transition-all"></div>
+                </label>
+
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    name="color"
+                    value="red"
+                    class="hidden peer"
+                  />
+                  <div class="w-10 h-10 bg-blue-600 rounded-full border-4 border-transparent peer-checked:border-blue-500 transition-all"></div>
+                </label>
+              </div>
+              <div class="w-64 ml-1 mb-10 mx-auto mt-6">
+                <label
+                  for="number-select"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  Amount
+                </label>
+                <select
+                  value={amount}
+                  onChange={(e) => {
+                    setAmount(e.target.value);
+                  }}
+                  id="number-select"
+                  class="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-700 shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                >
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="13">13</option>
+                  <option value="14">14</option>
+                  <option value="15">15</option>
+                  <option value="16">16</option>
+                  <option value="17">17</option>
+                  <option value="18">18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                </select>
+              </div>
+              <button className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
+                Add to Bag
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

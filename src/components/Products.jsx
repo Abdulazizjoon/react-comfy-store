@@ -6,6 +6,9 @@ import Pagination from "@mui/material/Pagination";
 function Product() {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
+  let [search, setSearch] = useState("");
+  let [range, setRange] = useState(5700);
+  const [category, setCategory] = useState("all");
 
   useEffect(() => {
     axios
@@ -20,7 +23,22 @@ function Product() {
         console.error("API Error:", err);
       });
   }, []);
-
+  function apiSearch(e) {
+    e.preventDefault();
+    axios
+      .get(
+        `https://strapi-store-server.onrender.com/api/products?search=&category=${category}&company=all&order=a-z&price=${range}`
+      )
+      .then((response) => {
+        if (response.status == 200) {
+          setData(response.data.data);
+          console.log(response.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   function about() {
     navigate("/about");
   }
@@ -34,9 +52,6 @@ function Product() {
   }
   function home() {
     navigate("/");
-  }
-  function cart() {
-    navigate("/cart");
   }
   return (
     <div>
@@ -73,7 +88,6 @@ function Product() {
               Products
             </li>
             <li
-              onClick={cart}
               className="text-sm px-4 py-2 text-[#394E6A] ml-1 cursor-pointer hover:bg-gray-400 rounded-xl"
             >
               Cart
@@ -97,6 +111,10 @@ function Product() {
             <input
               id="search"
               type="text"
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value);
+              }}
               placeholder="Type here"
               className="input input-bordered w-full"
             />
@@ -109,59 +127,20 @@ function Product() {
             >
               Category
             </label>
-            <select id="category" className="select select-bordered w-full">
-              <option value="">All Categories</option>
-              <option value="furniture">Furniture</option>
-              <option value="decor">Decor</option>
-              <option value="bedding">Bedding</option>
+            <select
+              id="category"
+              value={category}
+              onChange={(e) => {
+                setCategory(e.target.value);
+              }}
+              className="select select-bordered w-full"
+            >
+              <option value="all">All</option>
+              <option value="table">Table</option>
+              <option value="chair">chair</option>
+              <option value="kids">kids</option>
             </select>
           </div>
-
-          <div>
-            <label
-              htmlFor="minPrice"
-              className="block text-sm font-medium text-gray-700 mb-2"
-            >
-              Min Price
-            </label>
-            <input
-              id="minPrice"
-              type="number"
-              placeholder="Min"
-              className="input input-bordered w-full"
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="maxPrice"
-              className="block text-sm font-medium text-gray-700 mb-2"
-            >
-              Max Price
-            </label>
-            <input
-              id="maxPrice"
-              type="number"
-              placeholder="Max"
-              className="input input-bordered w-full"
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="rating"
-              className="block text-sm font-medium text-gray-700 mb-2"
-            >
-              Rating
-            </label>
-            <select id="rating" className="select select-bordered w-full">
-              <option value="">All Ratings</option>
-              <option value="5">5 Stars</option>
-              <option value="4">4 Stars & Above</option>
-              <option value="3">3 Stars & Above</option>
-            </select>
-          </div>
-
           <div>
             <label
               htmlFor="availability"
@@ -170,9 +149,9 @@ function Product() {
               Availability
             </label>
             <select id="availability" className="select select-bordered w-full">
-              <option value="">All</option>
-              <option value="inStock">In Stock</option>
-              <option value="outOfStock">Out of Stock</option>
+              <option value="all">All</option>
+              <option value="modenza">Modenza</option>
+              <option value="luxora">Luxora</option>
             </select>
           </div>
 
@@ -189,13 +168,26 @@ function Product() {
               <option value="highToLow">Price: High to Low</option>
             </select>
           </div>
-
+          <div>
+            <label className="text-black">price: {range}</label>
+            <input
+              id="rang"
+              type="range"
+              min={0}
+              max="10000"
+              value={range}
+              className="range range-primary"
+              onChange={(e) => {
+                setRange(e.target.value);
+              }}
+            />
+          </div>
           <div className="col-span-4 flex justify-end">
             <button
-              type="submit"
+              onClick={apiSearch}
               className="btn btn-primary bg-indigo-600 text-white py-2 px-6 rounded-md hover:bg-indigo-700"
             >
-              Apply Filters
+              SEARCH
             </button>
           </div>
         </form>

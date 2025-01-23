@@ -27,9 +27,6 @@ function Home() {
   function product() {
     navigate("/products");
   }
-  function cart() {
-    navigate('/cart')
-  }
   return (
     <div>
       <header className="bg-blue-950 py-2 ">
@@ -61,7 +58,7 @@ function Home() {
             >
               Products
             </li>
-            <li onClick={cart} className="text-sm px-4 py-2 text-[#394E6A] ml-1 cursor-pointer hover:bg-gray-400 rounded-xl">
+            <li className="text-sm px-4 py-2 text-[#394E6A] ml-1 cursor-pointer hover:bg-gray-400 rounded-xl">
               Cart
             </li>
           </ul>

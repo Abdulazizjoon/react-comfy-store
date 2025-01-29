@@ -2,11 +2,17 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Pagination from "@mui/material/Pagination";
+import { useDispatch } from "react-redux";
+import { add } from "../store/cart";
+import { colors } from "@mui/material";
 
 function Cart() {
   let [data, setData] = useState([]);
   let navigate = useNavigate();
   let [amount, setAmount] = useState(1);
+  let [selectedColor, setSelectedColor] = useState("");
+  let [count, setCount] = useState(1);
+  let dispatch=useDispatch()
 
   let id = useParams().id;
   useEffect(() => {
@@ -36,6 +42,15 @@ function Cart() {
   }
   function home() {
     navigate("/");
+  }
+  function addtobag() {
+    let obj = {
+      id: id,
+      count: count,
+      colors: selectedColor,
+      count:count
+    }
+    dispatch(add(obj))
   }
   return (
     <div>
@@ -85,7 +100,7 @@ function Cart() {
       <div>
         <div className="container mx-auto w-[1200px] flex items-center gap-2 mt-9 mb-12">
           <p className="ml-20 text-[#394e6a] cursor-pointer text-lg">Home </p>
-          <i class="fa-solid fa-chevron-right text-[#394e6a] text-lg"></i>
+          <i className="fa-solid fa-chevron-right text-[#394e6a] text-lg"></i>
           <p className=" text-[#394e6a] text-lg cursor-pointer">Products</p>
         </div>
         {data?.attributes && (
@@ -111,7 +126,7 @@ function Cart() {
                 {data.attributes.description}
               </p>
               <p>Colors</p>
-              <div class="flex mr-[80%] items-center justify-center gap-6 mt-10">
+              {/* <div class="flex mr-[80%] items-center justify-center gap-6 mt-10">
                 <label class="flex items-center cursor-pointer">
                   <input
                     type="radio"
@@ -131,21 +146,40 @@ function Cart() {
                   />
                   <div class="w-10 h-10 bg-blue-600 rounded-full border-4 border-transparent peer-checked:border-blue-500 transition-all"></div>
                 </label>
+              </div> */}
+              <div className="flex gap-2 mt-5">
+                {data.attributes.colors.length > 0 &&
+                  data.attributes.colors.map((color, index) => {
+                    return (
+                      <span
+                        key={index}
+                        onClick={() => {
+                          setSelectedColor(color);
+                        }}
+                        className="w-[25px] cursor-pointer h-[25px] rounded-full  block"
+                        style={{
+                          backgroundColor: color,
+                          border:
+                            color == selectedColor ? "2px solid black" : 'none',
+                        }}
+                      ></span>
+                    );
+                  })}
               </div>
-              <div class="w-64 ml-1 mb-10 mx-auto mt-6">
+              <div className="w-64 ml-1 mb-10 mx-auto mt-6">
                 <label
-                  for="number-select"
-                  class="block text-sm font-medium text-gray-700 mb-2"
+                  htmlFor="number-select"
+                  className="block text-sm font-medium text-gray-700 mb-2"
                 >
                   Amount
                 </label>
                 <select
-                  value={amount}
+                  value={count}
                   onChange={(e) => {
-                    setAmount(e.target.value);
+                    setCount(e.target.value);
                   }}
                   id="number-select"
-                  class="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-700 shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-700 shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 >
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -169,7 +203,7 @@ function Cart() {
                   <option value="20">20</option>
                 </select>
               </div>
-              <button className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
+              <button onClick={addtobag} className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
                 Add to Bag
               </button>
             </div>

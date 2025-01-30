@@ -39,5 +39,5 @@ let cart = createSlice({
     }
 })
 
-export default cart.reducers;
+export default cart.reducer;
 export let { add, edit, remove } = cart.actions;

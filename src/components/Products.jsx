@@ -7,7 +7,7 @@ function Product() {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
   let [search, setSearch] = useState("");
-  let [range, setRange] = useState(5700);
+  let [range, setRange] = useState(15000);
   const [category, setCategory] = useState("all");
 
   useEffect(() => {
@@ -176,8 +176,8 @@ function Product() {
             <input
               id="rang"
               type="range"
-              min={0}
-              max="10000"
+              min={15000}
+              max="100000"
               value={range}
               className="range range-primary"
               onChange={(e) => {

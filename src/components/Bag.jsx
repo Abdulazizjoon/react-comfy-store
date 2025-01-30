@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import cart from '../store/cart';
+import axios from 'axios';
 function Bag() {
   let navigate = useNavigate();
-  let cart=useSelector(state=>state.cart)
+  let cart = useSelector(state => state.cart)
+  let [data,setData]=useState([])
     function about() {
       navigate("/about");
     }
@@ -14,7 +16,18 @@ function Bag() {
     }
     function home() {
       navigate("/");
-    }
+  }
+  console.log(cart.id);
+  
+  useEffect(function() {
+    axios
+      .get(`https://strapi-store-server.onrender.com/api/products`)
+      .finally(response => {
+      if (response.status === 200) {
+        setData(response.data.data)
+      }
+    })
+  },[])
   return (
     <div>
       <header className="bg-blue-950 py-2 ">
@@ -59,12 +72,20 @@ function Bag() {
           </div>
         </div>
       </nav>
-      <div className='container mx-auto w-[1200px]'>
-        <h2 className='ml-14 mt-7 text-4xl'>Shopping Cart</h2>
-        <div className='w-full bg-black h-[1px] mt-3 mb-4'></div>
+      <div className="container mx-auto w-[1200px]">
+        <h2 className="ml-14 mt-7 text-4xl">Shopping Cart</h2>
+        <div className="w-full bg-black h-[1px] mt-3 mb-4"></div>
       </div>
       <div>
-        <p>{ cart}</p>
+        {
+          cart.length > 0 && cart.map((value, index) => {
+            return (
+              <div key={index}>
+                <p>{ value[0].id}</p>
+              </div>
+            )
+          })
+        }
       </div>
     </div>
   );

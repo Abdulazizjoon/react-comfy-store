@@ -1,36 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import cart from "../store/cart";
-import axios from "axios";
-function Bag() {
-  let navigate = useNavigate();
-  let cart = useSelector((state) => state.cart);
-  let [data, setData] = useState([]);
-  function about() {
-    navigate("/about");
-  }
 
-  function product() {
-    navigate("/products");
-  }
-  function home() {
-    navigate("/");
-  }
-  console.log(cart.id);
+function Cart() {
+  const navigate = useNavigate();
+  const cart = useSelector((state) => state.cart.value);
+  console.log(cart);
 
-  useEffect(function () {
-    axios
-      .get(`https://strapi-store-server.onrender.com/api/products`)
-      .finally((response) => {
-        if (response.status === 200) {
-          setData(response.data.data);
-        }
-      });
-  }, []);
   return (
     <div>
-      <header className="bg-blue-950 py-2 ">
+      <header className="bg-blue-950 py-2">
         <div className="flex justify-center sm:justify-end w-[1200px] container mx-auto">
           <div className="flex gap-x-6 justify-center items-center text-white">
             <a className="link link-hover text-xs sm:text-sm">
@@ -45,24 +24,24 @@ function Bag() {
           <h1 className="text-3xl">Logo</h1>
           <ul className="flex text-center mt-1">
             <li
-              onClick={home}
+              onClick={() => navigate("/")}
               className="text-sm px-4 py-2 hover:bg-gray-400 text-[#394E6A] ml-1 cursor-pointer rounded-lg"
             >
               Home
             </li>
             <li
-              onClick={about}
+              onClick={() => navigate("/about")}
               className="text-sm px-4 py-2 text-[#394E6A] ml-1 cursor-pointer hover:bg-gray-400 rounded-xl"
             >
               About
             </li>
             <li
-              onClick={product}
+              onClick={() => navigate("/products")}
               className="text-sm px-4 py-2 text-[#394E6A] ml-1 cursor-pointer hover:bg-gray-400 rounded-xl"
             >
               Products
             </li>
-            <li className="text-sm px-4 py-2 text-[#c7c9d1] ml-1 bg-[#021431] cursor-pointer  rounded-xl">
+            <li className="text-sm px-4 py-2 text-[#c7c9d1] ml-1 bg-[#021431] cursor-pointer rounded-xl">
               Cart
             </li>
           </ul>
@@ -72,22 +51,64 @@ function Bag() {
           </div>
         </div>
       </nav>
-      <div className="container mx-auto w-[1200px]">
-        <h2 className="ml-14 mt-7 text-4xl">Shopping Cart</h2>
-        <div className="w-full bg-black h-[1px] mt-3 mb-4"></div>
-      </div>
-      <div>
-        {cart.length > 0 &&
-          cart.map((value, index) => {
-            return (
-              <div key={index}>
-                <p>{value[0].id}</p>
-              </div>
-            );
-          })}
-      </div>
+      <section className="max-w-6xl mx-auto px-8 py-20">
+        {cart.length === 0 ? (
+          <div>
+            <h2 className="text-3xl tracking-wider font-medium text-col3 mb-5">
+              Your Cart Is Empty
+            </h2>
+            <hr />
+          </div>
+        ) : (
+          <div>
+            <div className="mb-10">
+              <h2 className="text-3xl tracking-wider font-medium text-col3 mb-5">
+                Shopping Cart
+              </h2>
+              <hr />
+            </div>
+            <div className="space-y-4">
+              {cart.map((product) => (
+                <div
+                  key={product.id}
+                  className="flex justify-between items-start"
+                >
+                  <div className="flex gap-x-20">
+                    <img
+                      src={product.attributes.image}
+                      alt={product.attributes.title}
+                      className="w-32 h-32 rounded-lg object-cover"
+                    />
+                    <div className="flex flex-col">
+                      <span className="capitalize text-col3 text-xl font-semibold">
+                        {product.attributes.title}
+                      </span>
+                      <span className="text-col1 text-sm inline-block mt-2">
+                        {product.attributes.company}
+                      </span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="font-normal text-col3">
+                        Amount: {product.amount}
+                      </span>
+                      <button
+                        className="text-col6"
+                      >
+                        remove
+                      </button>
+                    </div>
+                    <span className="text-col3 font-semibold">
+                      ${product.attributes.price}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </section>
     </div>
   );
 }
 
-export default Bag;
+export default Cart;

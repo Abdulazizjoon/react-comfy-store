@@ -12,7 +12,7 @@ function cart() {
   let [amount, setAmount] = useState(1);
   let [selectedColor, setSelectedColor] = useState("");
   let [count, setCount] = useState(1);
-  let dispatch=useDispatch()
+  let dispatch = useDispatch();
 
   let id = useParams().id;
   useEffect(() => {
@@ -44,16 +44,16 @@ function cart() {
     navigate("/");
   }
   function bag() {
-    navigate("/bag")
+    navigate("/bag");
   }
   function addtobag() {
     let obj = {
       id: id,
       count: count,
       colors: selectedColor,
-      count:count
-    }
-    dispatch(add(obj))
+      count: count,
+    };
+    dispatch(add(obj));
   }
   return (
     <div>
@@ -89,7 +89,10 @@ function cart() {
             >
               Products
             </li>
-            <li onClick={bag} className="text-sm px-4 py-2 text-[#394E6A] ml-1 cursor-pointer hover:bg-gray-400 rounded-xl">
+            <li
+              onClick={bag}
+              className="text-sm px-4 py-2 text-[#394E6A] ml-1 cursor-pointer hover:bg-gray-400 rounded-xl"
+            >
               Cart
             </li>
           </ul>
@@ -163,7 +166,7 @@ function cart() {
                         style={{
                           backgroundColor: color,
                           border:
-                            color == selectedColor ? "2px solid black" : 'none',
+                            color == selectedColor ? "2px solid black" : "none",
                         }}
                       ></span>
                     );
@@ -206,7 +209,10 @@ function cart() {
                   <option value="20">20</option>
                 </select>
               </div>
-              <button onClick={addtobag} className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
+              <button
+                onClick={addtobag}
+                className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300"
+              >
                 Add to Bag
               </button>
             </div>

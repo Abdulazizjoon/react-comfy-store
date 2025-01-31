@@ -1,11 +1,11 @@
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
-import Home from './components/Home'
-import ErorPage from './components/ErorPage';
-import About from './components/About';
-import Products from './components/Products';
-import Cart from './components/cart';
-import Bag from './components/bag';
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import Home from "./components/Home";
+import ErorPage from "./components/ErorPage";
+import About from "./components/About";
+import Products from "./components/Products";
+import Cart from "./components/cart";
+import Bag from "./components/bag";
 
 function App() {
   return (
@@ -22,4 +22,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

@@ -1,33 +1,33 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import cart from '../store/cart';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import cart from "../store/cart";
+import axios from "axios";
 function bag() {
   let navigate = useNavigate();
-  let cart = useSelector(state => state.cart)
-  let [data,setData]=useState([])
-    function about() {
-      navigate("/about");
-    }
+  let cart = useSelector((state) => state.cart);
+  let [data, setData] = useState([]);
+  function about() {
+    navigate("/about");
+  }
 
-    function product() {
-      navigate("/products");
-    }
-    function home() {
-      navigate("/");
+  function product() {
+    navigate("/products");
+  }
+  function home() {
+    navigate("/");
   }
   console.log(cart.id);
-  
-  useEffect(function() {
+
+  useEffect(function () {
     axios
       .get(`https://strapi-store-server.onrender.com/api/products`)
-      .finally(response => {
-      if (response.status === 200) {
-        setData(response.data.data)
-      }
-    })
-  },[])
+      .finally((response) => {
+        if (response.status === 200) {
+          setData(response.data.data);
+        }
+      });
+  }, []);
   return (
     <div>
       <header className="bg-blue-950 py-2 ">
@@ -77,18 +77,17 @@ function bag() {
         <div className="w-full bg-black h-[1px] mt-3 mb-4"></div>
       </div>
       <div>
-        {
-          cart.length > 0 && cart.map((value, index) => {
+        {cart.length > 0 &&
+          cart.map((value, index) => {
             return (
               <div key={index}>
-                <p>{ value[0].id}</p>
+                <p>{value[0].id}</p>
               </div>
-            )
-          })
-        }
+            );
+          })}
       </div>
     </div>
   );
 }
 
-export default bag
+export default bag;

@@ -90,7 +90,8 @@ function Product() {
             >
               Products
             </li>
-            <li onClick={bag}
+            <li
+              onClick={bag}
               className="text-sm px-4 py-2 text-[#394E6A] ml-1 cursor-pointer hover:bg-gray-400 rounded-xl"
             >
               Cart

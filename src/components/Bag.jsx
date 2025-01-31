@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-function Cart() {
+function Bag() {
   const navigate = useNavigate();
   const cart = useSelector((state) => state.cart.value);
   console.log(cart);
@@ -111,4 +111,4 @@ function Cart() {
   );
 }
 
-export default Cart;
+export default Bag;

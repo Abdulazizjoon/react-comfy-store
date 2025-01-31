@@ -5,7 +5,7 @@ import ErorPage from "./components/ErorPage";
 import About from "./components/About";
 import Products from "./components/Products";
 import Cart from "./components/cart";
-import Bag from "./components/bag";
+import Bag from "./components/Bag";
 
 function App() {
   return (

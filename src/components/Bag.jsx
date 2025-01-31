@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import cart from '../store/cart';
 import axios from 'axios';
-function Bag() {
+function bag() {
   let navigate = useNavigate();
   let cart = useSelector(state => state.cart)
   let [data,setData]=useState([])
@@ -91,4 +91,4 @@ function Bag() {
   );
 }
 
-export default Bag
+export default bag

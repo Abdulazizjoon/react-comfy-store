@@ -4,7 +4,7 @@ import Home from './components/Home'
 import ErorPage from './components/ErorPage';
 import About from './components/About';
 import Products from './components/Products';
-import Cart from './components/Cart';
+import Cart from './components/cart';
 import Bag from './components/bag';
 
 function App() {

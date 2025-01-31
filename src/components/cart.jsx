@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { add } from "../store/cart";
 import { colors } from "@mui/material";
 
-function Cart() {
+function cart() {
   let [data, setData] = useState([]);
   let navigate = useNavigate();
   let [amount, setAmount] = useState(1);
@@ -217,4 +217,4 @@ function Cart() {
   );
 }
 
-export default Cart;
+export default cart;
